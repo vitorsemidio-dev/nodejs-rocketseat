@@ -46,4 +46,15 @@ module.exports = {
 
         return res.send();
     },
+
+    async clean(req, res) {
+        const all_data = await Product.find();
+        const list_id = all_data.map((data) => data._id);
+        list_id.map( async (id) =>  {
+            await Product.findByIdAndRemove(id);
+            return
+        });
+
+        return res.send( { ok: true } );
+    }
 }
